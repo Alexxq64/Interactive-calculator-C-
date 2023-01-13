@@ -6,7 +6,7 @@
 
 using namespace std;
 
-char operations[] = { '+', '-', '*', '/', '&', '|', '^', 'f', 'p', 'q'};
+char operations[] = { '+', '-', '*', '/', '&', '|', '^', 'f', 'p', 'q', 'r'};
 char operation;
 long long operand1;
 int operand2;
@@ -39,6 +39,15 @@ int main() {
         else{
             operand2 = getNumber("Введите второе число: ");
             cout << endl;
+            if (operation == 'r') {
+                calculate(operation, operand1, operand2);
+                cout << "Поменялись местами с помощью трех исключающих или." << endl;
+                cout << operand1 << " " << operand2 << endl;
+                cout << operand1 << " " << operand2 << endl;
+                cout << operand1 << " " << operand2 << endl;
+                cout << operand1 << " " << operand2 << endl;
+                continue;
+            }
             result = calculate(operation, operand1, operand2);
             if (wrongOperation == "") 
                 cout << result << endl << endl;
@@ -127,6 +136,10 @@ float calculate(char operation, int operand1, int operand2) {
         return operand1 | operand2;
     case '^':
         return operand1 ^ operand2;
+    case 'r': 
+        ::operand1 ^= ::operand2;
+        ::operand2 ^= ::operand1;
+        return ::operand1 ^= ::operand2;
     case 'p':
         if (operand2 < 0) {
             wrongOperation = "Калькулятор не умеет возводить в отрицательную степень.\n";
