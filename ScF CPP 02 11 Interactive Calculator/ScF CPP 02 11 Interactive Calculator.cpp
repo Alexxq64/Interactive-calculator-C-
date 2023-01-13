@@ -52,3 +52,67 @@ int main() {
     return 0;
 }
 
+float calculate(char operation, int operand1, int operand2) {
+    wrongOperation = "";
+    string explanation;
+    explanation += operation;
+    if (operation == 'p') explanation = "в степени";
+    cout << operand1 << " " << explanation << " " << operand2 << " = ";
+    switch (operation) {
+    case '+':
+        return add(operand1, operand2);
+    case '-':
+        return substract(operand1, operand2);
+    case '*':
+        return multiplicate(operand1, operand2);
+    case '/':
+        return divide(operand1, (float)operand2);
+    case '&':
+        return _and(operand1, operand2);
+    case '|':
+        return _or(operand1, operand2);
+    case '^':
+        return _xOr(operand1, operand2);
+    case 'p':
+        if (operand2 < 0) {
+            wrongOperation = "Калькулятор не умеет возводить в отрицательную степень.\n";
+            return 0;
+        }
+        else {
+            return expo(operand1, operand2);
+        }
+    }
+
+}
+
+bool existsSuchOperation(char op) {
+    for (char o : operations) {
+        if (o == op) return true;
+    }
+    return false;
+}
+
+char getOperation() {
+    string input;
+    cout << endl << "Выберите операцию: ";
+    while (true) {
+        getline(cin, input);
+        if ((input == "") ||
+            (input[1] != '\0') ||
+            !existsSuchOperation(input[0]))
+            cout << "Неправильный ввод. Попробуйте еще раз. \n";
+        else return input[0];
+    }
+}
+
+float divide(int operand1, int operand2) {
+    if (operand2) {
+        return operand1 / (float)operand2;
+    }
+    else {
+        wrongOperation = "Деление на ноль запрещено.\n";
+        return 0;
+    }
+}
+
+
